@@ -1,0 +1,72 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Functions
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+skew(kx, ky, kz):=matrix([0, -kz, ky], [kz, 0, -kx], [-ky, kx, 0]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Forward Kinematics for the Last 3 DoF
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+T[0]:matrix([1, 0, 0, -a[4]],
+          [0, 1, 0, d[4]+d[5]],
+          [0, 0, 1, a[3]],
+          [0, 0, 0, 1]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+k:matrix([1, 0, 0],
+          [0, 0, 1],
+          [0, 1, 0]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+p:matrix([0, 0, 0],
+          [0, d[4], 0],
+          [-a[4], 0, a[3]]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+I:ident(3);
+T[n]:ident(4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+for i:1 thru length(first(transpose(k))) do 
+(
+    R[i]: I*cos(q[i]) + transpose(k[i]).k[i]*(1-cos(q[i])) + skew(k[i,1],k[i,2],k[i,3])*sin(q[i]),
+    D[i]: addrow( addcol(R[i], (I-R[i]).transpose(p[i])) , [0,0,0,1]),
+    T[n]: T[n].D[i]
+);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+T[n];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+q[1] = atan(T[n][3,2]/T[n][2,2]);
+q[2] = asin(-T[n][1,2]);
+q[3] = atan(T[n][1,3]/T[n][1,1]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+eq3:-a[3]*u/sqrt(1+u^2) - a[4]*(1-1/sqrt(1+u^2)) = v;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+to_poly_solve([eq3], [u]);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,26 @@
+kinematic_parameters;
+q1 = [-pi/2 pi/2];
+q2 = [-pi/2 pi/6];
+q3 = [-1.28 pi/3];
+q4 = [-0.581 1.1];
+q5 = [-1.01 0.675];
+q6 = [-pi pi];
+q2_0 = pi/2 + atan2(a(1),d(2));
+q3_0 = atan2(a(2),d(3)) + atan2(d(2), a(1));
+% IK0_3
+L2 = sqrt(d(2)^2 + a(1)^2);
+L3 = sqrt(d(3)^2 + a(2)^2);
+gamma = q3 + q3_0;
+x = gamma(1):1e-3:gamma(2);
+co = L3*sin(x);
+ca = L2 - L3*cos(x);
+r = sqrt(co.^2 + ca.^2);
+rho = atan2(co, ca);
+alpha = [min(rho) max(rho)];
+beta = q2 + q2_0 - fliplr(alpha);
+disp(sprintf('q1: [%0.3f, %0.3f]', q1));
+disp(sprintf('q2: [%0.3f, %0.3f]', q2));
+disp(sprintf('q3: [%0.3f, %0.3f]', q3));
+disp(sprintf('q4: [%0.3f, %0.3f]', q4));
+disp(sprintf('q5: [%0.3f, %0.3f]', q5));
+disp(sprintf('q6: [%0.3f, %0.3f]', q6));

@@ -1,0 +1,47 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+x[f1]:l[1]*cos(theta[1]) + l[2]*cos(theta[1]+theta[2]);
+y[f1]:l[1]*sin(theta[1]) + l[2]*sin(theta[1]+theta[2]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+x[f2]:l[3]*cos(theta[3]) + l[4]*cos(theta[3]+theta[4]) + l[5]*cos(theta[3]+theta[4]+theta[5]);
+y[f2]:s + l[3]*sin(theta[3]) + l[4]*sin(theta[3]+theta[4]) + l[5]*sin(theta[3]+theta[4]+theta[5]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+J[1]:matrix([diff(x[f1],theta[1]), diff(x[f1],theta[2])],
+            [diff(y[f1],theta[1]), diff(y[f1],theta[2])],
+            [1, 1]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+J[2]:matrix([diff(x[f2],theta[3]), diff(x[f2],theta[4]), diff(x[f2],theta[5])],
+            [diff(y[f2],theta[3]), diff(y[f2],theta[4]), diff(y[f2],theta[5])],
+            [1, 1, 1]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+Omega[p]:matrix([-J[1][1,2], J[2][1,2], J[2][1,3]],
+                [-J[1][2,2], J[2][2,2], J[2][2,3]],
+                [-J[1][3,2], J[2][3,2], J[2][3,3]]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+Omega[a]:matrix([J[1][1,1], -J[2][1,1]],
+                [J[1][2,1], -J[2][2,1]],
+                [J[1][3,1], -J[2][3,1]]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+G[ap]:trigrat(invert(Omega[p]).Omega[a]);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
