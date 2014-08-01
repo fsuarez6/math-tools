@@ -8,4 +8,3 @@ addpath(genpath(strcat(pwd, '/src')));
 cd(strcat(current_path, '/rvctools'));
 startup_rvc;
 cd(current_path);
-clear;
