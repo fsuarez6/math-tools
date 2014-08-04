@@ -9,7 +9,8 @@ cd(script_path);
 % Performance comparison
 clear; close all;
 home_path = getuserdir();
-data_folder = [getuserdir() '/Dropbox/doctorado/publications/2014_kinematics/test/'];
+%~ data_folder = [getuserdir() '/Dropbox/doctorado/publications/2014_kinematics/test/'];
+data_folder = [getuserdir() '/journal_data/'];
 methods = {'kdl','lma','ikfast','decoup'};
 labels = {'N--R','L--M','IKFast','I--D'};
 [rows, cols] = size(methods);
