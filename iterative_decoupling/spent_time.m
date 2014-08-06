@@ -57,26 +57,26 @@ for i = 1:cols
   xlabel('Time [ms.]');
   ylabel('log(Frequency)');
   title(titles{i});
-  %~ % Workaround
-  %~ % Get histogram patches
-  %~ ph = get(gca,'children');
-  %~ % Determine number of histogram patches
-  %~ N_patches = length(ph);
-  %~ for j = 1:N_patches
-   %~ % Get patch vertices
-   %~ vn = get(ph(j),'Vertices');
-   %~ % Adjust y location
-   %~ vn(:,2) = vn(:,2) + 1;
-   %~ % Reset data
-   %~ set(ph(j),'Vertices',vn)
-  %~ end
-  %~ % Change scale
-  %~ set(gca,'yscale','log')
+  % Workaround
+  % Get histogram patches
+  ph = get(gca,'children');
+  % Determine number of histogram patches
+  N_patches = length(ph);
+  for j = 1:N_patches
+   % Get patch vertices
+   vn = get(ph(j),'Vertices');
+   % Adjust y location
+   vn(:,2) = vn(:,2) + 1;
+   % Reset data
+   set(ph(j),'Vertices',vn)
+  end
+  % Change scale
+  set(gca,'yscale','log')
   % Save the tikz figures
   grid on;
   xlim([0 xlimit]);
   % ylim([0 1e5]);
-  matlab2tikz([tikz_folder filenames{i} '.tex'], 'standalone', true, 'showInfo',false,'height',...
-        '50mm','width','50mm','floatFormat','%.4f');
+  %~ matlab2tikz([tikz_folder filenames{i} '.tex'], 'standalone', true, 'showInfo',false,'height',...
+        %~ '50mm','width','50mm','floatFormat','%.4f');
 end
 tilefigs;

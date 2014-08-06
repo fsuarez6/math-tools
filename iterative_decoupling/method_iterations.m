@@ -39,15 +39,23 @@ for f = 1:length(filenames)
   end
 end
 
+ColorSet = distinguishable_colors(3);
+set(0,'DefaultAxesColorOrder', ColorSet);
+set(0,'defaulttextinterpreter','latex');
+
 for m = 1:length(methods)
-  [x, idx] = sort(results(m).iter_number);
+  [iter, idx] = sort(results(m).iter_number);
   x = 1:length(idx);
   y1 = results(m).solved(idx);
   y2 = results(m).mean_time(idx) .^ (-1);
   figure,
-  plotyy(x, y1, x, y2);
+  plot(y1);
+  hold on;
   %~ bar(y1);
   %~ axis equal;
 end
-
+[iter, idx] = sort(results(m).iter_number);
+xlim([1 length(idx)]);
+set(gca,'XTick', );
+set(gca,'XTickLabel', step_size);
 tilefigs;

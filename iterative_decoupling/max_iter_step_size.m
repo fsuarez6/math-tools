@@ -1,10 +1,10 @@
 % Run the startup script
-%~ script_path = pwd;
-%~ filename = mfilename('fullpath');
-%~ [path, name, ext] = fileparts(filename);
-%~ cd('../');
-%~ startup;
-%~ cd(script_path);
+script_path = pwd;
+filename = mfilename('fullpath');
+[path, name, ext] = fileparts(filename);
+cd('../');
+startup;
+cd(script_path);
 
 clear; close all;
 home_path = getuserdir();
