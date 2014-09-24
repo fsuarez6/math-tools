@@ -7,9 +7,17 @@ startup;
 cd(script_path);
 
 clc; clear; close all;
-home_path = getuserdir();
-data_folder = [getuserdir() '/Dropbox/doctorado/baxter/benchmark/'];
-data_folder = [getuserdir() '/benchmark/'];
+% Get the files that include the pattern
+home_dir = getuserdir();
+dropbox_space = [home_dir '/Dropbox/doctorado/baxter/benchmark/'];
+home_space = [home_dir '/benchmark/'];
+if exist(dropbox_space, 'dir') == 7
+  data_folder = dropbox_space;
+elseif exist(home_space, 'dir') == 7
+  data_folder = home_space;
+else
+  error('benchmark folder not found')
+end
 % Plots configuration
 ColorSet = distinguishable_colors(3);
 set(0,'DefaultAxesColorOrder', ColorSet);
@@ -43,12 +51,15 @@ y_ticks = [-0.5:0.1:0.5];
 decimation = 5;
 height = '35mm';
 width = '35mm';
+extra_opts = {'tick label style={font=\scriptsize}', 'label style={font=\footnotesize}', 'legend style={font=\scriptsize}'};
 
 tikz_folder = [getuserdir() '/git/icra-2015/tikz/'];
 
 close all;
 figure, hold on, grid on; box on;
-plot(time(1:decimation:end), rpy_chest(1:decimation:end,:));
+plot(time(1:decimation:end), rpy_chest(1:decimation:end, 1), ':b');
+plot(time(1:decimation:end), rpy_chest(1:decimation:end, 2), '-r');
+plot(time(1:decimation:end), rpy_chest(1:decimation:end, 3), '--g');
 legend('roll', 'pitch', 'yaw');
 fill([x_dyn(1) x_dyn(1) x_dyn(2) x_dyn(2)], [fliplr(y_limits) y_limits], 'k', 'EdgeColor','None', 'FaceAlpha', 0.2);
 idx = find(time >= 200 & time <= 600);
@@ -61,11 +72,12 @@ set(gca,'YTick',y_ticks);
 ylabel('Drifting [rad]');
 xlabel('Time [s]');
 matlab2tikz([tikz_folder 'bax_drift_chest.tex'], 'standalone', true, 'showInfo',false,'height',...
-        height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',... 
-        {'tick label style={font=\scriptsize}', 'label style={font=\small}', 'legend style={font=\scriptsize}'});
+        height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',extra_opts);
 
 figure, hold on, grid on; box on;
-plot(time(1:decimation:end), rpy_upper(1:decimation:end,:));
+plot(time(1:decimation:end), rpy_upper(1:decimation:end, 1), ':b');
+plot(time(1:decimation:end), rpy_upper(1:decimation:end, 2), '-r');
+plot(time(1:decimation:end), rpy_upper(1:decimation:end, 3), '--g');
 fill([x_dyn(1) x_dyn(1) x_dyn(2) x_dyn(2)], [fliplr(y_limits) y_limits], 'k', 'EdgeColor','None', 'FaceAlpha', 0.2);
 idx = find(time >= 200 & time <= 600);
 y_change = [min(rpy_upper(idx,2)) max(rpy_upper(idx,2))];
@@ -77,11 +89,12 @@ set(gca,'YTick',y_ticks);
 xlabel('Time [s]');
 set(gca, 'YTickLabel', [])
 matlab2tikz([tikz_folder 'bax_drift_upper.tex'], 'standalone', true, 'showInfo',false,'height',...
-        height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',...  
-        {'tick label style={font=\scriptsize}', 'label style={font=\small}'});
+        height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',extra_opts);
 
 figure, hold on, grid on; box on;
-plot(time(1:decimation:end), rpy_lower(1:decimation:end,:));
+plot(time(1:decimation:end), rpy_lower(1:decimation:end, 1), ':b');
+plot(time(1:decimation:end), rpy_lower(1:decimation:end, 2), '-r');
+plot(time(1:decimation:end), rpy_lower(1:decimation:end, 3), '--g');
 fill([x_dyn(1) x_dyn(1) x_dyn(2) x_dyn(2)], [fliplr(y_limits) y_limits], 'k', 'EdgeColor','None', 'FaceAlpha', 0.2);
 idx = find(time >= 200 & time <= 600);
 y_change = [min(rpy_lower(idx,2)) max(rpy_lower(idx,2))];
@@ -93,11 +106,12 @@ set(gca,'YTick',y_ticks);
 xlabel('Time [s]');
 set(gca, 'YTickLabel', [])
 matlab2tikz([tikz_folder 'bax_drift_lower.tex'], 'standalone', true, 'showInfo',false,'height',...
-        height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',...  
-        {'tick label style={font=\scriptsize}', 'label style={font=\small}'});
+        height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',extra_opts);
         
 figure, hold on, grid on; box on;
-plot(time(1:decimation:end), rpy_hand(1:decimation:end,:));
+plot(time(1:decimation:end), rpy_hand(1:decimation:end, 1), ':b');
+plot(time(1:decimation:end), rpy_hand(1:decimation:end, 2), '-r');
+plot(time(1:decimation:end), rpy_hand(1:decimation:end, 3), '--g');
 fill([x_dyn(1) x_dyn(1) x_dyn(2) x_dyn(2)], [fliplr(y_limits) y_limits], 'k', 'EdgeColor','None', 'FaceAlpha', 0.2);
 idx = find(time >= 200 & time <= 600);
 y_change = [min(rpy_hand(idx,2)) max(rpy_hand(idx,2))];
@@ -109,8 +123,7 @@ set(gca,'YTick',y_ticks);
 xlabel('Time [s]');
 set(gca, 'YTickLabel', [])
 matlab2tikz([tikz_folder 'bax_drift_hand.tex'], 'standalone', true, 'showInfo',false,'height',...
-        height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',...  
-        {'tick label style={font=\scriptsize}', 'label style={font=\small}'});
+        height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',extra_opts);
 
 tilefigs;
 close all;
