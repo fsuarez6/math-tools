@@ -15,10 +15,10 @@ set(0,'defaulttextinterpreter','latex');
 home_dir = getuserdir();
 dropbox_space = [home_dir '/Dropbox/doctorado/baxter/experiments/'];
 home_space = [home_dir '/experiments/'];
-if exist(dropbox_space, 'dir') == 7
-  data_folder = dropbox_space;
-elseif exist(home_space, 'dir') == 7
+if exist(home_space, 'dir') == 7
   data_folder = home_space;
+elseif exist(dropbox_space, 'dir') == 7
+  data_folder = dropbox_space;
 else
   error('experiments folder not found')
 end
@@ -91,19 +91,16 @@ for f = 1:length(filenames)
     matlab2tikz([tikz_folder 'bax_z_tracking.tex'], 'standalone', true, 'showInfo',false,'height',...
         height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',extra_opts);
     % Position error
+    xyz_names = {'X','Y','Z'};
+    bar_width = 0.4;
     y_limits = [-0.2 0.2];
     figure, hold on; grid on; box on;
-    pos_error = commanded_pose(:,1:3) - pose(:,1:3);
-    decimation = 5;
-    plot(time(1:decimation:end), pos_error(1:decimation:end,1), ':b');
-    plot(time(1:decimation:end), pos_error(1:decimation:end,2), '--r')
-    plot(time(1:decimation:end), pos_error(1:decimation:end,3), '-g')
-    legend('X', 'Y', 'Z')
-    xlabel('Time [s]');
-    xlim([0 50]);
-    ylim(y_limits);
-    set(gca,'YTick', y_limits(1):step:y_limits(2));
-    matlab2tikz([tikz_folder 'bax_tracking_error.tex'], 'standalone', true, 'showInfo',false,'height',...
+    position_rmse = sqrt(mean((commanded_pose(region, 1:3) - pose(region, 1:3)).^2));
+    bar(position_rmse*1000, bar_width);
+    ylabel('Position RMSE [mm]');
+    set(gca,'xTick',1:length(xyz_names), 'XTickLabel', xyz_names);
+    set(gca,'XTickLabel', xyz_names);
+    matlab2tikz([tikz_folder 'bax_tracking_rmse.tex'], 'standalone', true, 'showInfo',false,'height',...
         height,'width',width,'floatFormat','%.4f', 'extraAxisOptions',extra_opts);
     tilefigs;
   end
@@ -115,7 +112,7 @@ lw = stats.lower_wisker;
 uw = stats.upper_wisker;
 lav = stats.lower_adjacent_value;
 uav = stats.upper_adjacent_value;
-disp(['Omni   ' num2str([m uw lw uav lav])]);
+disp(['Omni     ' num2str([m uw lw uav lav])]);
 figure,
 stats = boxplot_data('priovr', priovr_times, 1);
 m = stats.median;
