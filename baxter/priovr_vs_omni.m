@@ -52,11 +52,11 @@ for f = 1:length(filenames)
   % Plots
   %~ if strcmp('omni-2014-09-18-13-43-21.mat', filename) && false
   if strcmp('omni-2014-09-19-18-40-46.mat', filename)
-    extra_opts = {'tick label style={font=\scriptsize}', 'label style={font=\footnotesize}', 'legend style={font=\scriptsize}'};
-    tikz_folder = [home_dir '/git/icra-2015/tikz/'];
+    extra_opts = {'tick label style={font=\scriptsize}', 'label style={font=\small}', 'legend style={font=\small}'};
+    tikz_folder = [getuserdir() '/git/phd-thesis/tikz/'];
     region = 1:samples;
-    height = '35mm';
-    width = '33mm';
+    height = '45mm';
+    width = '37mm';
     y_limits = [0.5 0.9];
     step = 0.1;
     figure, hold on; grid on; box on;
