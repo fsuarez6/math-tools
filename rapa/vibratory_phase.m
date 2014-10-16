@@ -22,7 +22,7 @@ F = A * exp(-C .* t) .* sin(w * t);
 
 set(0,'defaulttextinterpreter','latex');
 figure,
-plot(t * 1000, F);
+plot(t * 1000, F, 'k');
 grid on;
 ylabel('Vibration Force [N]');
 xlabel('Time [ms.]');
