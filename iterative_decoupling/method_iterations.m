@@ -43,19 +43,25 @@ ColorSet = distinguishable_colors(3);
 set(0,'DefaultAxesColorOrder', ColorSet);
 set(0,'defaulttextinterpreter','latex');
 
-for m = 1:length(methods)
-  [iter, idx] = sort(results(m).iter_number);
-  x = 1:length(idx);
-  y1 = results(m).solved(idx);
-  y2 = results(m).mean_time(idx) .^ (-1);
-  figure,
-  plot(y1);
-  hold on;
-  %~ bar(y1);
-  %~ axis equal;
-end
-[iter, idx] = sort(results(m).iter_number);
-xlim([1 length(idx)]);
-set(gca,'XTick', );
-set(gca,'XTickLabel', step_size);
+% KDL
+[kdl_iter, idx] = sort(results(1).iter_number);
+kdl_solved = results(1).solved(idx);
+disp(idx)
+% LMA
+[lma_iter, idx] = sort(results(2).iter_number);
+lma_solved = results(2).solved(idx);
+disp(idx)
+% Decoupling
+[deco_iter, idx] = sort(results(3).iter_number);
+deco_solved = results(3).solved(idx);
+disp(idx)
+
+% Plot
+figure; hold on; grid on;
+plot(deco_iter, deco_solved, ':rs', 'LineWidth', 0.8);
+plot(kdl_iter, kdl_solved, '-gd', 'LineWidth', 0.8);
+plot(lma_iter, lma_solved, '--bo', 'LineWidth', 0.8);
+
+%~ set(gca,'XTick', );
+%~ set(gca,'XTickLabel', step_size);
 tilefigs;
