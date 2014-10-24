@@ -33,6 +33,8 @@ fig2 = figure; grid on; hold on; box on;
 ax2 = gca;
 first_omni = [];
 first_priovr = [];
+%~ omni_users = zeros(length(users), 2);
+%~ priovr_users = zeros(length(users), 2);
 for user_num = 1:length(users)
   user = users{user_num};
   if not(isempty(strfind(user, '07')))
@@ -66,38 +68,78 @@ for user_num = 1:length(users)
       priovr_times(end+1) = time(end);
     end
   end
-  plot(ax1, 100 * (omni_times(1) - omni_times) / omni_times(1), line_types{user_num}, 'LineWidth', 0.8);
-  plot(ax2, 100 * (priovr_times(1) - priovr_times) / priovr_times(1), line_types{user_num}, 'LineWidth', 0.8);
+  omni_learning_effect = 100 * (omni_times(1) - omni_times) / omni_times(1);
+  priovr_learning_effect = 100 * (priovr_times(1) - priovr_times) / priovr_times(1);
+  plot(ax1, omni_learning_effect, line_types{user_num}, 'LineWidth', 0.8);
+  plot(ax2, priovr_learning_effect, line_types{user_num}, 'LineWidth', 0.8);
+  omni_learning_effect = (omni_times(1) - omni_times);
+  priovr_learning_effect = (priovr_times(1) - priovr_times);
+  omni_users(:,user_num) = omni_learning_effect(2:end);
+  priovr_users(:,user_num) = priovr_learning_effect(2:end);
+  omni_user_times(user_num, :) = omni_times;
+  priovr_user_times(user_num, :) = priovr_times;
 end
-% Tikz files
-extra_opts = {'enlarge x limits=0.1', 'legend style={font=\scriptsize}'};
+
+% Common variables
+close all;
 tikz_folder = [getuserdir() '/git/phd-thesis/tikz/'];
+extra_opts = {'tick label style={font=\scriptsize}', 'label style={font=\small}', 'legend style={font=\scriptsize}'};
 fig_height = '50mm';
-fig_width = '50mm';
-x_limits = [1 3];
-y_limits = [-30 40];
+fig_width = '58mm';
+bar_width = 1.0;
+
+% Completion time bar plots
+y_limits = [0 220];
+y_step = 20;
+figure, grid on;
+bar(omni_user_times, bar_width);
+xlabel('User Number');
+ylabel('Completion Time [s]');
+ylim(y_limits);
+set(gca, 'YGrid', 'on');
+set(gca, 'YTick',y_limits(1):y_step:y_limits(2));
+lh = legend('Trial 1', 'Trial 2', 'Trial 3');
+set(lh, 'Location', 'NorthWest');
+colormap bone;
+matlab2tikz([tikz_folder 'bax_completion_omni.tex'], 'standalone', true, 'showInfo',false,'height',...
+        fig_height,'width',fig_width,'floatFormat','%.4f','extraAxisOptions',extra_opts);
+
+figure, grid on;
+bar(priovr_user_times, bar_width);
+xlabel('User Number');
+ylim(y_limits);
+set(gca, 'YGrid', 'on');
+set(gca, 'YTick',y_limits(1):y_step:y_limits(2));
+colormap bone;
+matlab2tikz([tikz_folder 'bax_completion_priovr.tex'], 'standalone', true, 'showInfo',false,'height',...
+        fig_height,'width',fig_width,'floatFormat','%.4f','extraAxisOptions',extra_opts);
+
+% Time Improvement bar plots
+x_limits = [1.6 3.4];
+y_limits = [-20 80];
 y_step = 10;
-% Plots improvement
-set(0, 'Currentfigure', fig1);
+figure, bar(2:0.5:3, [omni_users(1,:) ; repmat(NaN,1,6) ; omni_users(2,:)], bar_width);
 xlim(x_limits);
 ylim(y_limits);
 xlabel('Trial Number');
-ylabel('Learning Effect [\%]');
-set(gca, 'XTick',x_limits(1):x_limits(2));
-set(gca, 'YTick',-20:10:30);
+ylabel('Time Improvement [s]');
+set(gca, 'YGrid', 'on');
+lh = legend(user_legend);
+set(gca,'xtick',2:3);
+set(gca, 'YTick',y_limits(1):y_step:y_limits(2));
+colormap bone;
 matlab2tikz([tikz_folder 'bax_learning_omni.tex'], 'standalone', true, 'showInfo',false,'height',...
         fig_height,'width',fig_width,'floatFormat','%.4f','extraAxisOptions',extra_opts);
 
-set(0, 'Currentfigure', fig2);
+figure, bar(2:0.5:3, [priovr_users(1,:) ; repmat(NaN,1,6) ; priovr_users(2,:)], bar_width);
 xlim(x_limits);
 ylim(y_limits);
 xlabel('Trial Number');
-set(gca, 'XTick',x_limits(1):x_limits(2));
+set(gca, 'YGrid', 'on');
+%~ set(gca, 'YTickLabel', []);
+set(gca,'xtick',2:3);
 set(gca, 'YTick',y_limits(1):y_step:y_limits(2));
-set(gca, 'YTickLabel', []);
-lh = legend(user_legend);
-set(lh, 'Location', 'NorthEastOutside');
+colormap bone;
 matlab2tikz([tikz_folder 'bax_learning_priovr.tex'], 'standalone', true, 'showInfo',false,'height',...
         fig_height,'width',fig_width,'floatFormat','%.4f','extraAxisOptions',extra_opts);
-
 tilefigs;
