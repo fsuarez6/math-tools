@@ -26,6 +26,7 @@ p = [   0 0 0;
         0 0 d1+d2];
 tipo = [1 1 1 1 1 1]; % Todas son de revolucion
 [T0_6,D]=fk_dm(T0, k, p, tipo);
+T0_6 = simple(T0_6);
 
 % T0_3
 T0_0_3 =[1 0 0 0;
