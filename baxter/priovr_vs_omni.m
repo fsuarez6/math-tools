@@ -121,4 +121,5 @@ uw = stats.upper_wisker;
 lav = stats.lower_adjacent_value;
 uav = stats.upper_adjacent_value;
 disp(['PrioVR   ' num2str([m uw lw uav lav])]);
+anova1([omni_times;priovr_times]');
 
