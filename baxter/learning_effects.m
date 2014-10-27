@@ -142,4 +142,29 @@ set(gca, 'YTick',y_limits(1):y_step:y_limits(2));
 colormap bone;
 matlab2tikz([tikz_folder 'bax_learning_priovr.tex'], 'standalone', true, 'showInfo',false,'height',...
         fig_height,'width',fig_width,'floatFormat','%.4f','extraAxisOptions',extra_opts);
+
+
+fig_height = '50mm';
+fig_width = '80mm';
+manual = [27.98
+25.59
+28.74
+21.31
+23.47
+21.53
+23.08
+19.33
+19.74
+20.01];
+y_limits = [0 30];
+y_step = 5;
+figure; grid on; hold on; box on;
+plot(manual, '--ks', 'LineWidth', 0.8);
+xlabel('Trial Number');
+ylabel('Task Completion Time [s]');
+ylim(y_limits);
+set(gca, 'YTick',y_limits(1):y_step:y_limits(2));
+set(gca, 'XTick',1:length(manual));
 tilefigs;
+matlab2tikz([tikz_folder 'bax_manual_time.tex'], 'standalone', true, 'showInfo',false,'height',...
+        fig_height,'width',fig_width,'floatFormat','%.4f','extraAxisOptions',extra_opts);
