@@ -5,6 +5,8 @@ cd(path);
 addpath(genpath(strcat(pwd, '/tools')));
 cd('../matlab2tikz');
 addpath(genpath(strcat(pwd, '/src')));
-cd(strcat(current_path, '/rvctools'));
-startup_rvc;
+if ~is_octave
+  cd(strcat(current_path, '/rvctools'));
+  startup_rvc;
+end
 cd(current_path);

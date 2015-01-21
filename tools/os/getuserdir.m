@@ -1,16 +1,17 @@
 function userDir = getuserdir
-%GETUSERDIR   return the user home directory.
-%   USERDIR = GETUSERDIR returns the user home directory using the registry
-%   on windows systems and using Java on non windows systems as a string
-%
-%   Example:
-%      getuserdir() returns on windows
-%           C:\Documents and Settings\MyName\Eigene Dateien
+% GETUSERDIR  Retrieve the user directory
+%   - Under Windows returns the %APPDATA% directory
+%   - For other OSs uses java to retrieve the user.home directory
 
 if ispc
-    userDir = winqueryreg('HKEY_CURRENT_USER',...
-        ['Software\Microsoft\Windows\CurrentVersion\' ...
-         'Explorer\Shell Folders'],'Personal');
+  %     userDir = winqueryreg('HKEY_CURRENT_USER',...
+  %         ['Software\Microsoft\Windows\CurrentVersion\' ...
+  %          'Explorer\Shell Folders'],'Personal');
+  userDir = getenv('appdata');
 else
+  if is_octave
+    userDir = '~';
+  else
     userDir = char(java.lang.System.getProperty('user.home'));
+  end
 end
