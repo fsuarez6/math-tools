@@ -56,12 +56,12 @@ names.appendChild(cell_to_xml(DO, 'DO', xml_doc));
 hw_interface.appendChild(names);
 % Interpolation coefficientes
 coeff = [
-0 -0.2963766654;                 % SA_POS
+0 -0.2963766654;                % SA_POS
 -0.5339964818 0.2970773195;     % SE_POS
 2.4055932068 -0.3436355516;     % EL_POS
-0.3226073641 -0.2841595824;    % WP_POS
+0.3226073641 -0.2841595824;     % WP_POS
 -0.1023368224  0.2835425468;    % WY_POS
--1.1365007535 -0.2820101125;    % WR_POS
+0 -0.3141592654;                % WR_POS
 0 1;                            % SA_FORCE
 0 1;                            % SE_FORCE
 0 1;                            % EL_FORCE
