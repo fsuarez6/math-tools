@@ -1,6 +1,14 @@
+% Run the startup script
+script_path = pwd;
+filename = mfilename('fullpath');
+[path, name, ext] = fileparts(filename);
+cd('../');
+startup;
+cd(script_path);
+
+
 % Generate XML with the GripsSlave parameters
 clc;
-startup;
 kinematic_parameters;
 q = zeros(1, 6);
 xml_doc = com.mathworks.xml.XMLUtils.createDocument('GXML_Root');
@@ -28,8 +36,16 @@ pos_limits = [
 -1.1 0.581;
 -1.01 0.675;
 -2*pi 2*pi];
+vel_limits = [
+80*pi/180;
+65*pi/180;
+50*pi/180;
+100*pi/180;
+115*pi/180;
+200*pi/180];
 limits.appendChild(matrix_to_xml(pos_limits(:,1), 'min_position', xml_doc));
 limits.appendChild(matrix_to_xml(pos_limits(:,2), 'max_position', xml_doc));
+limits.appendChild(matrix_to_xml(vel_limits, 'velocity', xml_doc));
 kin_parameters.appendChild(limits);
 xml_root.appendChild(kin_parameters);
 % Hardware Interface
