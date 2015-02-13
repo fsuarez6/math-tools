@@ -17,6 +17,7 @@ Clone the following repositories:
 ```
 $ git clone https://github.com/fsuarez6/phd-tools.git
 $ git clone https://github.com/nschloe/matlab2tikz.git
+$ git clone https://github.com/bcharrow/matlab_rosbag.git -b hydro-devel
 ``` 
 
 Additionally you may need the Robotics Toolbox for Matlab. Download it from [http://www.petercorke.com/RTB/](http://www.petercorke.com/RTB/). Current used version: **9.9** 
