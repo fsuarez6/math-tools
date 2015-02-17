@@ -1,3 +1,5 @@
 # Ignore rvctools
 rvctools
 *~
+# Ignore YAML repo
+YAMLMatlab*

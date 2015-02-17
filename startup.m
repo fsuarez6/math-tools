@@ -2,7 +2,7 @@ current_path = pwd;
 filename = mfilename('fullpath');
 [path, name, ext] = fileparts(filename);
 cd(path);
-% Add custom tool scripts
+% Add custom scripts
 addpath(genpath(strcat(pwd, '/tools')));
 % Add tikz functionality to matlab
 cd('../matlab2tikz');
@@ -10,6 +10,9 @@ addpath(genpath(strcat(pwd, '/src')));
 % Add rosbag functionality to matlab
 cd('../matlab_rosbag');
 addpath(genpath(strcat(pwd, '/src')));
+% Add YAML support
+cd(current_path);
+addpath(genpath(strcat(pwd, '/YAMLMatlab_0.4.3')));
 % Add robotic toolbox to the path
 if ~is_octave
   cd(strcat(current_path, '/rvctools'));

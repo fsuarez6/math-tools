@@ -20,9 +20,11 @@ $ git clone https://github.com/nschloe/matlab2tikz.git
 $ git clone https://github.com/bcharrow/matlab_rosbag.git -b hydro-devel
 ``` 
 
-Additionally you may need the Robotics Toolbox for Matlab. Download it from [http://www.petercorke.com/RTB/](http://www.petercorke.com/RTB/). Current used version: **9.9** 
+Additionally you will need:
+* The Robotics Toolbox for Matlab. Download it from [http://www.petercorke.com/RTB/](http://www.petercorke.com/RTB/). Current used version: **9.9** 
+* Matlab reader and writer of YAML formated files. Download it from [here](https://code.google.com/p/yamlmatlab/downloads/list). Current used version: **0.4.3** 
 
-Unzip it inside the `phd-tools` folder.
+Unzip both of them inside the `phd-tools` folder.
 
 ### Octave
 
