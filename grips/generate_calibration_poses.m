@@ -11,10 +11,10 @@
 %~ Inertia:       [Ixx,     Ixy,    Ixz,      Iyy,      Iyz,    Izz]
 %~ gripper_inertia:  [7300e-6, 0,      -650e-6,  8800e-6,  0,      7000e-6]
 %~ 
-%~ Real measurements
-%~ FT Sensor: 1.4 N
-%~ Acople:    1.4 N
-%~ Robotiq:   23.3 N
+%~ Real measurements (Gravity = 9.80665 m/s^2)
+%~ FT Sensor: 1.4 N   -> 0.14276  Kg
+%~ Acople:    1.4 N   -> 0.14276  Kg
+%~ Robotiq:   23.3 N  -> 2.3759   Kg
 
 path = '~/catkin_ws/src/grips/grips_ft_sensor/config';
 % main loop frequency [Hz] (should be as fast as F/T sensor publish frequency)
