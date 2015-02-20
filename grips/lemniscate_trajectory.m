@@ -27,7 +27,7 @@ q = [zeros(3,points)' ones(1,points)'];
 % Poses are stored as:
 % rotation     position
 % [w x y z]    [x y z]
-data.time_step = 0.05;        % Seconds
-data.frame_id = 'base_link';        % Seconds
+data.time_step = 10 / points;     % Seconds
+data.frame_id = 'base_link';
 data.points = [q x' y' z'];
 WriteYaml([grips_dir '/grips_teleop/config/lemniscate_trajectory.yaml'],data);
