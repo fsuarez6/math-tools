@@ -29,13 +29,14 @@ limits.setAttribute('mems', '3');
 has_limits = true(1,6);
 has_limits(6) = false;
 limits.appendChild(matrix_to_xml(has_limits, 'has_limits', xml_doc));
+to_rad = pi / 180;
 pos_limits = [
 -pi/2 pi/2;
 -pi/2 pi/6;
-2.617993878 5.672320069;
--1.1 0.581;
--1.01 0.675;
--2*pi 2*pi];
+-55*to_rad 120*to_rad;
+-35*to_rad 65*to_rad;
+-39*to_rad 66*to_rad;
+-pi pi];
 vel_limits = [
 80*pi/180;
 65*pi/180;
@@ -72,11 +73,11 @@ names.appendChild(cell_to_xml(DO, 'DO', xml_doc));
 hw_interface.appendChild(names);
 % Interpolation coefficientes
 coeff = [
-0 -0.2963766654;                % SA_POS
--0.5339964818 0.2970773195;     % SE_POS
-2.4055932068 -0.3436355516;     % EL_POS
-0.3226073641 -0.2841595824;     % WP_POS
--0.1023368224  0.2835425468;    % WY_POS
+-0.002963766654 -0.2963766654;  % SA_POS
+-0.5206405904   0.2958185173;   % SE_POS
+0.5083206709    -0.3021094155;  % EL_POS
+0.328927436     -0.2918610789;  % WP_POS
+0.09627461358   -0.2815047181;  % WY_POS
 0 -0.3141592654;                % WR_POS
 0 1;                            % SA_FORCE
 0 1;                            % SE_FORCE
