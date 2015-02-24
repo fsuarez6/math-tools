@@ -36,7 +36,7 @@ pos_limits = [
 -55*to_rad 120*to_rad;
 -35*to_rad 65*to_rad;
 -39*to_rad 66*to_rad;
--pi pi];
+-325/2*to_rad 325/2*to_rad];
 vel_limits = [
 80*pi/180;
 65*pi/180;
@@ -78,7 +78,7 @@ coeff = [
 0.5083206709    -0.3021094155;  % EL_POS
 0.328927436     -0.2918610789;  % WP_POS
 0.09627461358   -0.2815047181;  % WY_POS
-0 -0.3141592654;                % WR_POS
+-0.1492715808   -0.2985431615;  % WR_POS
 0 1;                            % SA_FORCE
 0 1;                            % SE_FORCE
 0 1;                            % EL_FORCE

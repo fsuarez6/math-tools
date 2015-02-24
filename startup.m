@@ -13,6 +13,9 @@ addpath(genpath(strcat(pwd, '/src')));
 % Add YAML support
 cd(current_path);
 addpath(genpath(strcat(pwd, '/YAMLMatlab_0.4.3')));
+% Add image measuretool support
+cd(current_path);
+addpath(genpath(strcat(pwd, '/measuretool-1.14')));
 % Add robotic toolbox to the path
 if ~is_octave
   cd(strcat(current_path, '/rvctools'));

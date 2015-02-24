@@ -3,3 +3,5 @@ rvctools
 *~
 # Ignore YAML repo
 YAMLMatlab*
+# Ignore measuretool folder
+measuretool*

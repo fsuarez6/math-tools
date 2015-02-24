@@ -21,8 +21,9 @@ den = 1 + sin(t).^2;
 x = a.*cos(t)./ den;
 z = 0.5 + a.*sin(t).*cos(t) ./ den;
 %~ plot(x, z);
-y = ones(1,points) * 0.5;
-q = [zeros(3,points)' ones(1,points)'];
+y = ones(1,points) * 0.9;
+xw = ones(1,points)' * sqrt(2) / 2;
+q = [-xw zeros(2,points)' xw];
 
 % Poses are stored as:
 % rotation     position
