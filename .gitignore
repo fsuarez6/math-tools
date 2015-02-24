@@ -5,3 +5,4 @@ rvctools
 YAMLMatlab*
 # Ignore measuretool folder
 measuretool*
+ArduinoIO
