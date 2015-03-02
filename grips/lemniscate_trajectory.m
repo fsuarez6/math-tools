@@ -19,7 +19,7 @@ t = 0:2*pi/(points-1):2*pi;
 a = 0.25;
 den = 1 + sin(t).^2;
 x = a.*cos(t)./ den;
-z = 0.5 + a.*sin(t).*cos(t) ./ den;
+z = 0.6 + a.*sin(t).*cos(t) ./ den;
 %~ plot(x, z);
 y = ones(1,points) * 0.9;
 xw = ones(1,points)' * sqrt(2) / 2;
